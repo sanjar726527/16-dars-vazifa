@@ -1,27 +1,15 @@
 import React from "react";
 import { useState } from "react";
-import { Button, Table } from "react-bootstrap";
-import { FiEdit } from "react-icons/fi";
-import { RiDeleteBin5Line } from "react-icons/ri";
+
 import UsersPageWrapper from "./UsersPageWrapper";
 
 import { useDispatch, useSelector } from "react-redux";
+import { Table } from "react-bootstrap";
+import Tables from "./Tables";
 
 export const UsersPage = () => {
-  const [isEdit, setIsEdit] = useState(false);
-
   const users = useSelector((user) => user.product.users);
-  const dispatch = useDispatch();
-
-  const handleShow = (user) => {
-    setIsEdit(true);
-    dispatch({ type: "EDIT_POSITION", payload: user });
-  };
-
-  const removeTask = (index) => {
-    dispatch({ type: "REMOVE_TASK", payload: index });
-    console.log("remove task", index, users);
-  };
+  
   return (
     <UsersPageWrapper>
       <div className="container">
@@ -30,7 +18,7 @@ export const UsersPage = () => {
           <span>Yetib kelgan arizalarni kuzatishingiz mumkin</span>
         </div>
         <div className="applications-table pt-3">
-          <Table >
+          <Table>
             <thead>
               <tr>
                 <th>#</th>
@@ -44,24 +32,7 @@ export const UsersPage = () => {
               {users.map((user, index) => {
                 return (
                   <tr key={index}>
-                    <td>{user.id}</td>
-                    <td>{user.name}</td>
-                    <td>{user.number}</td>
-                    <td>{user.position}</td>
-                    <td colSpan={2}>
-                      <Button
-                        variant="outline"
-                        onClick={() => handleShow(user)}
-                      >
-                        <FiEdit size={22} />
-                      </Button>
-                      <button
-                        className="btn btn-outline-danger"
-                        onClick={() => removeTask(index)}
-                      >
-                        <RiDeleteBin5Line fill="red" size={22} />
-                      </button>
-                    </td>
+                    <Tables user={user} index={index} />;
                   </tr>
                 );
               })}

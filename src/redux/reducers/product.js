@@ -15,9 +15,9 @@ const productReducer = (state = initialState, action) => {
       users = [...state.users];
       users.splice(action.payload, 1);
       return { ...state, users };
-    case "EDIT_POSITION":
+    case "EDIT_USER":
       users = [...state.users];
-      users[action.payload.index].position = action.payload.name;
+      users[action.payload.index] = action.payload.user;
       return { ...state, users };
     case "ADD_NEW_PRODUCT":
       return {
